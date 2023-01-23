@@ -1,0 +1,18 @@
+.chart-page__controls {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+.chart-page__controls > * {
+  margin-bottom: 10px;
+}
+
+.chart__wrapper {
+  opacity: 0;
+}
+.visible {
+  opacity: 100%;
+}

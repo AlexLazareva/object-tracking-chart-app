@@ -1,0 +1,42 @@
+<div class="chart-page__controls">
+  <mat-form-field appearance="fill">
+    <mat-label>Выберите интервал</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Начало периода">
+      <input matEndDate formControlName="end" placeholder="Конец периода">
+    </mat-date-range-input>
+    <mat-hint>ДД/ММ/ГГГГ – ДД/ММ/ГГГГ</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+  </mat-form-field>
+</div>
+
+<div class="chart__wrapper" [class.visible]="range.value.start && range.value.end">
+  <mat-button-toggle-group
+    name="fontStyle"
+    aria-label="Font Style"
+    [formControl]="dateType"
+  >
+    <mat-button-toggle value="day">Сутки</mat-button-toggle>
+    <mat-button-toggle value="week">Неделя</mat-button-toggle>
+    <mat-button-toggle value="month">Месяц</mat-button-toggle>
+    <mat-button-toggle value="year">Год</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <app-day-chart
+    *ngIf="dateType.value === ChartDateType.Day"
+  ></app-day-chart>
+  <app-week-chart
+    *ngIf="dateType.value === ChartDateType.Week"
+  ></app-week-chart>
+  <app-month-chart
+    *ngIf="dateType.value === ChartDateType.Month"
+  ></app-month-chart>
+  <app-year-chart
+    *ngIf="dateType.value === ChartDateType.Year"
+  ></app-year-chart>
+</div>
+
